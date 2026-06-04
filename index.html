@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jewel Omon — Content Writer & Scrum Master</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #161616;
+    --card: #141414;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --accent: #c8f55a;
+    --accent2: #7ef0c0;
+    --accent3: #f5c842;
+    --text: #f0ede6;
+    --muted: #888880;
+    --muted2: #555550;
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-serif: 'Lora', serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 5vw;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 5vw 4rem;
+    position: relative;
+    gap: 4rem;
+  }
+
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  .hero-left {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(200,245,90,0.08);
+    border: 1px solid rgba(200,245,90,0.2);
+    color: var(--accent);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    border-radius: 2px;
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name span {
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-role {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+    margin-top: 0.8rem;
+  }
+
+  .hero-bio {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.85;
+    max-width: 500px;
+    margin-bottom: 2.5rem;
+    border-left: 2px solid var(--accent);
+    padding-left: 1.2rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0a0a;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.8rem;
+    border: none;
+    border-radius: 2px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: #d4ff60;
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.8rem;
+    border: 1px solid var(--border2);
+    border-radius: 2px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .hero-right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .stat-card:hover { border-color: var(--border2); }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 3rem;
+  }
+
+  .stat-label {
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .stat-label strong {
+    display: block;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 0.88rem;
+    margin-bottom: 0.15rem;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 5vw;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-num {
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-left: 1rem;
+  }
+
+  /* ABOUT */
+  #about {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p:first-child {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  .about-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .about-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.2rem 1.4rem;
+  }
+
+  .about-card-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .about-card-value {
+    font-size: 0.88rem;
+    color: var(--text);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .skill-item {
+    background: var(--card);
+    padding: 1.8rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    transition: background 0.2s;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-item:hover { background: var(--bg3); }
+
+  .skill-icon {
+    font-size: 1.4rem;
+  }
+
+  .skill-name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .skill-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* PROJECTS */
+  #projects { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .project-item {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    gap: 1.5rem;
+    align-items: start;
+    transition: background 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .project-item:last-child { border-bottom: none; }
+  .project-item:hover { background: var(--bg3); }
+
+  .project-num {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    color: var(--muted2);
+    font-weight: 800;
+    padding-top: 0.3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .project-body {}
+
+  .project-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.02em;
+  }
+
+  .project-org {
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+  }
+
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 650px;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+  }
+
+  .tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .project-arrow {
+    font-size: 1.2rem;
+    color: var(--muted2);
+    transition: color 0.2s, transform 0.2s;
+    padding-top: 0.2rem;
+  }
+
+  .project-item:hover .project-arrow {
+    color: var(--accent);
+    transform: translate(3px, -3px);
+  }
+
+  /* EXPERIENCE */
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-meta {}
+
+  .exp-date {
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .exp-company {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .exp-location {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .exp-body {}
+
+  .exp-role {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.02em;
+  }
+
+  .exp-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .exp-points li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.7;
+  }
+
+  .exp-points li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* EDUCATION & CERTS */
+  #education { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.8rem;
+    transition: border-color 0.2s;
+  }
+
+  .edu-card:hover { border-color: var(--border2); }
+
+  .edu-card-type {
+    font-size: 0.68rem;
+    color: var(--accent2);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .edu-card-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.01em;
+  }
+
+  .edu-card-sub {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 0.2rem;
+  }
+
+  .edu-card-date {
+    font-size: 0.75rem;
+    color: var(--muted2);
+    margin-top: 0.5rem;
+  }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+    margin-bottom: 1.2rem;
+  }
+
+  .contact-heading em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .contact-subtext {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  .contact-link-icon {
+    width: 32px; height: 32px;
+    background: rgba(200,245,90,0.08);
+    border: 1px solid rgba(200,245,90,0.15);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .contact-link-label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .contact-link-value {
+    color: var(--text);
+    font-size: 0.85rem;
+  }
+
+  .contact-link:hover .contact-link-value { color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 5vw;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--muted2);
+  }
+
+  .footer-copy span { color: var(--accent); }
+
+  .footer-back {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-back:hover { color: var(--accent); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * {
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .hero-tag { animation-delay: 0.1s; }
+  .hero-name { animation-delay: 0.2s; }
+  .hero-role { animation-delay: 0.3s; }
+  .hero-bio { animation-delay: 0.4s; }
+  .hero-ctas { animation-delay: 0.5s; }
+
+  .hero-right {
+    animation: fadeUp 0.7s ease 0.4s both;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--muted2); border-radius: 2px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    #hero { grid-template-columns: 1fr; padding-top: 7rem; }
+    .hero-right { display: none; }
+    .about-grid, .edu-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.8rem; }
+    .project-item { grid-template-columns: 2.5rem 1fr; }
+    .project-arrow { display: none; }
+    nav { padding: 1rem 4vw; }
+    .nav-links { display: none; }
+    section { padding: 4rem 4vw; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">J.OMON</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-left">
+    <div class="hero-tag">Available for work</div>
+    <h1 class="hero-name">
+      Jewel<span>Omon.</span>
+    </h1>
+    <p class="hero-role">Content Writer &amp; Scrum Master</p>
+    <p class="hero-bio">
+      A little obsessed with making things make sense. Whether crafting words on a page or guiding a team through a sprint — strip away the confusion, find the clearest path, get things done well.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View Work</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stat-card">
+      <div class="stat-num">5+</div>
+      <div class="stat-label"><strong>Years of Experience</strong>Across writing, editorial, and team management</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">7</div>
+      <div class="stat-label"><strong>Projects Completed</strong>From blogs to published research</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color: var(--accent2);">2</div>
+      <div class="stat-label"><strong>Core Disciplines</strong>Content Writing + Agile/Scrum Leadership</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color: var(--accent3);">1</div>
+      <div class="stat-label"><strong>Published Research</strong>Computational Methods Journal, 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">About</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Hi, I'm Jewel Omon. I'm a Content Writer and Scrum Master who's a little obsessed with making things make sense.</p>
+      <p>Whether I'm crafting words on a page or guiding a team through a sprint, my goal is always the same — strip away the confusion, find the clearest path, and get things done well.</p>
+      <p>I work best at the intersection of people and process. I bring a collaborative spirit to everything I do, but I'm also the person quietly making sure the workflow isn't falling apart behind the scenes. If there's a chaotic process somewhere, I'm already thinking about how to fix it.</p>
+      <p>When I write, I write for clarity. When I lead, I lead with structure. And in both, I'm always rooting for the people involved.</p>
+    </div>
+    <div class="about-aside">
+      <div class="about-card">
+        <div class="about-card-label">Education</div>
+        <div class="about-card-value">B.Eng. Computer Engineering<br><span style="color:var(--muted);font-size:0.82rem;">University of Uyo, 2019–2025</span></div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-label">Location</div>
+        <div class="about-card-value">Uyo, Nigeria</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-label">Certification</div>
+        <div class="about-card-value">Google Project Management<br><span style="color:var(--muted);font-size:0.82rem;">Foundations of Project Management</span></div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-label">Founder</div>
+        <div class="about-card-value">King Krests — Faith-inspired streetwear brand rooted in minimalist design &amp; bold graphics.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Skills</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-item">
+      <div class="skill-icon">✦</div>
+      <div class="skill-name">Content Strategy</div>
+      <div class="skill-desc">Building structured content plans that align with audience needs and business goals from end to end.</div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">◈</div>
+      <div class="skill-name">SEO Writing</div>
+      <div class="skill-desc">Crafting copy that reads naturally while ranking — keyword integration done without sacrificing voice.</div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">▣</div>
+      <div class="skill-name">Blog & Article Writing</div>
+      <div class="skill-desc">Long-form and short-form content across tech, lifestyle, and faith verticals with consistent, clear voice.</div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">◎</div>
+      <div class="skill-name">Scrum</div>
+      <div class="skill-desc">Facilitating sprint ceremonies, managing backlogs, and removing blockers to keep teams moving.</div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">⬡</div>
+      <div class="skill-name">Agile</div>
+      <div class="skill-desc">Iterative thinking applied to both editorial workflows and cross-functional team delivery.</div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">◇</div>
+      <div class="skill-name">Editorial Design</div>
+      <div class="skill-desc">End-to-end publication management — from content planning to layout using Canva Pro.</div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">⬨</div>
+      <div class="skill-name">AI Prompt Crafting</div>
+      <div class="skill-desc">Designing effective prompts and refining AI-generated content to meet professional standards.</div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">◆</div>
+      <div class="skill-name">Research & Analysis</div>
+      <div class="skill-desc">Academic and applied research — from stakeholder surveys to Python-based simulations.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-list">
+
+    <a class="project-item" href="https://drive.google.com/file/d/1aQABaVstH5IQdmjc3jmfjzOfyC66-sAy/view?usp=drive_link" target="_blank">
+      <div class="project-num">01</div>
+      <div class="project-body">
+        <div class="project-title">Eagles' Magazine &amp; Blog</div>
+        <div class="project-org">Great Faith Believers Assembly</div>
+        <div class="project-desc">Started as a Content Writer for the Eagles Blog, writing long-form and short-form pieces. Grew into Editor-in-Chief &amp; Editorial Designer for the inaugural Annual Eagles' Magazine — leading the full project lifecycle from initiation to launch, coordinating contributors, managing timelines, and overseeing editorial design.</div>
+        <div class="project-tags">
+          <span class="tag">Editorial</span><span class="tag">Leadership</span><span class="tag">Long-form</span><span class="tag">Canva Pro</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <a class="project-item" href="https://www.enistores.com" target="_blank">
+      <div class="project-num">02</div>
+      <div class="project-body">
+        <div class="project-title">Eni Stores Website</div>
+        <div class="project-org">Eni Stores Limited</div>
+        <div class="project-desc">Developed website content that was both engaging and search-engine optimised — spanning copywriting, keyword integration, and content structure aligned with how the target audience searches. The site not only reads well, it ranks well.</div>
+        <div class="project-tags">
+          <span class="tag">SEO Writing</span><span class="tag">Copywriting</span><span class="tag">Web Content</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <a class="project-item" href="http://www.jpub.org/journal-admin/uploads/articles/cm314.pdf" target="_blank">
+      <div class="project-num">03</div>
+      <div class="project-body">
+        <div class="project-title">Smart Building Strategies for Seamless IoT Integration</div>
+        <div class="project-org">Computational Methods Journal — Vol. 3, Issue 1, 2026</div>
+        <div class="project-desc">Published research examining how IoT technologies can be retrofitted into existing buildings without structural remodelling, using Nigeria's Dakkada Tower as a case study. Combined a stakeholder survey of 54 respondents with Python-based energy simulations, finding a full IoT retrofit could deliver up to 27.7% energy savings.</div>
+        <div class="project-tags">
+          <span class="tag">Research</span><span class="tag">Published</span><span class="tag">IoT</span><span class="tag">Python</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <a class="project-item" href="https://medium.com/@thescribblord" target="_blank">
+      <div class="project-num">04</div>
+      <div class="project-body">
+        <div class="project-title">TheScribblord on Medium</div>
+        <div class="project-org">Independent Writing</div>
+        <div class="project-desc">Independent tech writing covering IoT, blockchain infrastructure, cryptocurrency, and entrepreneurship — written to make complex ideas accessible and engaging to a broad audience.</div>
+        <div class="project-tags">
+          <span class="tag">Tech Writing</span><span class="tag">Blockchain</span><span class="tag">IoT</span><span class="tag">Medium</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <a class="project-item" href="https://gfbaeaglesministry.blogspot.com/?m=1" target="_blank">
+      <div class="project-num">05</div>
+      <div class="project-body">
+        <div class="project-title">Eagles' Blog</div>
+        <div class="project-org">Great Faith Believers Assembly — Content Writer</div>
+        <div class="project-desc">Created long-form and short-form content including articles and features for the Eagles Blog, flexing across different content formats while maintaining a consistent voice aligned with the blog's identity.</div>
+        <div class="project-tags">
+          <span class="tag">Blog Writing</span><span class="tag">Long-form</span><span class="tag">Short-form</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <div class="project-item" style="cursor:default;">
+      <div class="project-num">06</div>
+      <div class="project-body">
+        <div class="project-title">PHPCONNECT</div>
+        <div class="project-org">Content Team Member — 3 Years</div>
+        <div class="project-desc">Three years contributing to PHPCONNECT's content operations, supporting consistent and quality content production. Built the rare skill of sustaining a coherent voice and content rhythm across an extended period.</div>
+        <div class="project-tags">
+          <span class="tag">Content Ops</span><span class="tag">Consistency</span><span class="tag">Team Writing</span>
+        </div>
+      </div>
+      <div class="project-arrow" style="opacity:0;">↗</div>
+    </div>
+
+    <div class="project-item" style="cursor:default; border-bottom:none;">
+      <div class="project-num">07</div>
+      <div class="project-body">
+        <div class="project-title">King Krests</div>
+        <div class="project-org">Founder &amp; Creative Director — Est. 2023</div>
+        <div class="project-desc">Founded a print-on-demand streetwear brand rooted in Christian faith, expressed through minimalist design and bold graphics. Handles concept, creative direction, product curation, and operations. Faith-inspired fashion built on the belief that the strongest messages are delivered with clarity and purpose.</div>
+        <div class="project-tags">
+          <span class="tag">Brand Building</span><span class="tag">Creative Direction</span><span class="tag">E-commerce</span>
+        </div>
+      </div>
+      <div class="project-arrow" style="opacity:0;">↗</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Experience</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="experience-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Nov 2025 — Present</div>
+        <div class="exp-company">Eni Stores Limited</div>
+        <div class="exp-location">Uyo, Nigeria</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Online Sales/Marketing Manager &amp; Content Manager</div>
+        <ul class="exp-points">
+          <li>Developed and managed SEO-optimised website content to drive organic traffic and improve search rankings.</li>
+          <li>Oversaw online sales strategy and marketing communications across digital channels.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Jan 2024 — Present</div>
+        <div class="exp-company">Great Faith Believers Assembly</div>
+        <div class="exp-location">Calabar, Nigeria</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Editorial Designer &amp; Content Manager</div>
+        <ul class="exp-points">
+          <li>Managed the annual Eagles' Magazine project end-to-end — from content planning to final editorial design using Canva.</li>
+          <li>Led the creative team and oversaw publication workflows, building confidence in leadership and teamwork.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Jul 2023 — Present</div>
+        <div class="exp-company">The Female Media (TEFEM) Network</div>
+        <div class="exp-location">University of Uyo, Nigeria</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Campus Ambassador</div>
+        <ul class="exp-points">
+          <li>Led student community and organised tech outreach events and virtual meetings.</li>
+          <li>Planned and executed outdoor campaigns; gained project reporting and event management experience.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Jul 2024 — Sep 2024</div>
+        <div class="exp-company">Netbrainers</div>
+        <div class="exp-location">Remote</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Graphics Designer</div>
+        <ul class="exp-points">
+          <li>Designed brand promotion graphics for social media using Canva.</li>
+          <li>Applied self-taught design skills to meet creative briefs and deadlines.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Apr 2022 — Jun 2022</div>
+        <div class="exp-company">Wirkish Nigeria</div>
+        <div class="exp-location">Calabar, Nigeria</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Web Content Writer</div>
+        <ul class="exp-points">
+          <li>Created blog content focused on opportunities for African creatives.</li>
+          <li>Conducted detailed research and developed strong editorial skills.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Oct 2020 — Mar 2021</div>
+        <div class="exp-company">Psifon Org</div>
+        <div class="exp-location">Calabar, Nigeria</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Writer / Editor (Intern)</div>
+        <ul class="exp-points">
+          <li>Collaborated on content for the organisation's tech blog.</li>
+          <li>Learned research fundamentals and the basics of content strategy.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Education &amp; Certifications</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-card-type">Degree</div>
+      <div class="edu-card-title">B.Eng. Computer Engineering</div>
+      <div class="edu-card-sub">University of Uyo — Uyo, Nigeria</div>
+      <div class="edu-card-date">2019 — 2025</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-card-type">Secondary Education</div>
+      <div class="edu-card-title">WASSCE</div>
+      <div class="edu-card-sub">Federal Government Girls' College — Calabar, Nigeria</div>
+      <div class="edu-card-date">2015 — 2018</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-card-type">Certification</div>
+      <div class="edu-card-title">Google Project Management</div>
+      <div class="edu-card-sub">Foundations of Project Management</div>
+      <div class="edu-card-date">Google Career Certificates</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-card-type">Publication</div>
+      <div class="edu-card-title">Computational Methods Journal</div>
+      <div class="edu-card-sub">Smart Building Strategies for Seamless IoT Integration</div>
+      <div class="edu-card-date">Vol. 3, Issue 1 — 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <h2 class="contact-heading">Let's make<br>something <em>clear.</em></h2>
+      <p class="contact-subtext">Whether you need sharp content, a structured workflow, or someone to help your team actually ship — reach out. I'm always up for a good brief.</p>
+      <a href="mailto:jayword022@gmail.com" class="btn-primary">Send an Email</a>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:jayword022@gmail.com" class="contact-link">
+        <div class="contact-link-icon">@</div>
+        <div>
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-value">jayword022@gmail.com</span>
+        </div>
+      </a>
+      <a href="https://wa.me/2348106326844" class="contact-link" target="_blank">
+        <div class="contact-link-icon">✆</div>
+        <div>
+          <span class="contact-link-label">WhatsApp</span>
+          <span class="contact-link-value">+234 810 632 6844</span>
+        </div>
+      </a>
+      <a href="https://medium.com/@thescribblord" class="contact-link" target="_blank">
+        <div class="contact-link-icon">M</div>
+        <div>
+          <span class="contact-link-label">Medium</span>
+          <span class="contact-link-value">@thescribblord</span>
+        </div>
+      </a>
+      <a href="https://x.com/TScribblor83362" class="contact-link" target="_blank">
+        <div class="contact-link-icon">𝕏</div>
+        <div>
+          <span class="contact-link-label">X / Twitter</span>
+          <span class="contact-link-value">@TScribblor83362</span>
+        </div>
+      </a>
+      <a href="https://www.instagram.com/jayjay_theword" class="contact-link" target="_blank">
+        <div class="contact-link-icon">◎</div>
+        <div>
+          <span class="contact-link-label">Instagram</span>
+          <span class="contact-link-value">@jayjay_theword</span>
+        </div>
+      </a>
+      <a href="https://www.facebook.com/share/1BqF7ing83/" class="contact-link" target="_blank">
+        <div class="contact-link-icon">f</div>
+        <div>
+          <span class="contact-link-label">Facebook</span>
+          <span class="contact-link-value">Jewel Omon</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-copy">© 2026 <span>Jewel Omon</span>. All rights reserved.</div>
+  <a href="#hero" class="footer-back">Back to top ↑</a>
+</footer>
+
+</body>
+</html>
